@@ -1,0 +1,800 @@
+Day-3
+
+creating own apis
+
+Step-1. nodejs
+	NPM- node package manager
+*download nodejs
+* check the nodejs is avaialbe or not- (node -v in cmd)
+step 2. json-server
+	run below command in the cmd
+	npm install -g json-server
+step-3.
+{
+  "students": [
+    {
+      "id": "1",
+      "name": "John",
+      "location": "india",
+      "phone": "1234567890",
+      "courses": [
+        "Java",
+        "Selenium"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Kim",
+      "location": "US",
+      "phone": "98876543213",
+      "courses": [
+        "Python",
+        "Аррium"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Smith",
+      "location": "Canada",
+      "phone": "165498765",
+      "courses": [
+        "С#",
+        "RestAPI"
+      ]
+    }
+  ]
+}
+
+* save above code as students.json
+*after open cmd as location of above saved json file 
+* type in cmd as json-server students.json
+
+-----------------------------------------------------------------------------
+
+Json(Java Script Object Notation) and JSON path: 
+What is JSON?
+1.JSON is a syntax for storing and exchanging the data.
+2.Basically it was designed for human-readble data interchange.
+3.JSon is text,written witih java script object notaion.
+4.It has been extended from the java script language.
+5.the lastname extension should be in .json.
+6.Json internet media type is application/json.
+7.We represent the data as Pairs(Key: value).
+8.when were comunucate with client and server with data as JSON.
+
+JSON DataTypes:
+1.Number
+2.String
+3.Boolean
+4.Null
+5.Object
+6.Array
+
+1.String
+* String in json must be written in double quotes
+* Exmple: {"name":"Jon" }
+
+2.Number
+* Number in json must be on integer or an floating point.
+* Example: {"age": 30 }
+
+3.Object
+* Values in json can be objects.
+* Example: {
+		"Employee":{ "name":"Hosanna","age":30,"cuty":"new yprk"}
+		}
+
+4.Array
+* Values in json can be array.
+* Example:
+	{
+		"employeee":["john","hosanna","satya"]
+	}
+5.Boolean
+* Values in json can be true/false.
+* Example: {"sale":true}
+
+6.Null
+* values in json can be null.
+* Example: {"middlename":null}
+
+--------------------------------------------------------------
+
+Json-Syntax:
+* Data should be in name/value pair.
+* Data should be separated by commas.
+* Curly braces should hold objects.
+* square brackets hold array.
+
+JSON vs XML
+
+		Json								XML
+1.Json is simple to read and write					1.it is also simple comapre to JSON it is notbeasy.
+2.It support array							2.it is not.
+3.Json files are more human-readable than XML.				3.XMl Files are less human readable.
+4.it support only text and number data types				4.it supportmany datatypes such as 													text,number,images,charts,graphs etc..
+
+
+--------------------------------------------------------
+JSON OBJECT:
+* Json object holds key.value pair. Each key is represented as a string in json and value can be of any type.
+* The key and value are separated by colon. Each key/value pair is separated by comma.
+* The curly brace { represents json object.
+* Example: {
+		"Empployeee":{
+				"Name": "Hosanna",
+				"id": 12
+			}
+	}
+JSON ARRAY:
+* Json array represents ordered list of values.
+* Json array can state multiple values. it can store string,number,boolean or object in json array.
+* In json array, values must be separated by comma.
+* The [ (Square brackets) ] represents JSON array.
+
+JSONPath:
+
+Example: student[1].sname
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tests/Validations
+---------------------------------------------------
+
+---------------------------------------------------------------
+Day-4
+
+-----------------------------------------------------------
+Response validations
+----------------------------------
+Status code
+Headers
+cookies
+Response time
+Response body
+
+Assertions: we can use to validate the responses.4
+
+PM-Pm is kind of libarary. so many functions are avaiable. to add validation points.
+* This functions uses the javaScript
+
+* defining the functions two types functions
+1.Normalfunction
+syntax:
+CHAI assertion library
+PM.test("Test Name",function()
+	{
+		//assertion;
+	}
+);
+
+2.Arrow function
+syntax:
+pm.test("Test Name", () =>
+	{
+		//assertion;
+	}
+);
+
+
+
+1.Testing status code:
+
+1.1.Test for the response status code
+
+pm.test("Status code is 200", () => {
+	pm.response.to.have.status(200);
+
+	});
+
+1.2.If you want to test for the status code being one of a set, include them all in an array and use one of
+
+pm.test("Successful post request", () =>{
+	pm.expect(pm.response.code).to.be.oneOf([201,202]);
+});
+
+1.3. Check the status code text:
+
+pm.test("Status code name has string", () => {
+	pm.response.tp have.status("created");
+});
+
+process of assertion writing:
+* open postman
+* Script is there, click on it
+* write the assertion you want and save it.
+* give the url and click on send button
+* go to test result and see the reults
+
+
+
+2. Testing headers
+* mainly we verify the content-type
+
+2.1 Check that a response header is present:
+ 
+pm.test("content-type header is present", () => {
+	pm.response.to.have.header("Content-Type");
+});
+
+2.2 Test for a response header having a particular value:
+
+pm.test("Content-Type header is application/json", () => {
+	pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');
+});
+
+3.Testing cookies
+
+3.1 Test if a cookie is present in the response:
+
+pm.test("cookie 'language' is present", () => {
+	pm.expect(pm.cookies.has('language')).to.be.true; 
+});
+
+3.2 Test for a particular cookie value:
+
+pm.test("cookie language has value 1", () => {
+	pm.expect(pm.cookies.get('language')).to.eql('en-gb');
+});
+
+
+4.Testing response time
+* we cannot get exact time beacasue some times it tajen more time.changing the time.
+* put approxmet time for the response of time.
+
+pm.test("Response time is less than 200ms", () => {
+	pm.expect(pm.response.responseTime).to.be.below(200); 
+});
+
+
+5.Testing Response body:
+
+5.1 Asserting a value type:
+
+
+5.1.1 Test the type of any part of the response:
+* we are checking the datatypes
+{
+    "id": "1",
+    "name": "John",
+    "location": "india",
+    "phone": "1234567890",
+    "courses": [
+        "Java",
+        "Selenium"
+    ]
+}
+syntax:
+const jsonData = pm.response.json();-----------response is copying into jsonData variable
+pm.test("Test data type of the response", () => {
+	pm.expect(jsonData).to.be.an("object");
+	pm.expect(jsonData.name).to.be.a("string");
+	pm.expect(jsonData.id).to.be.a("number");
+	pm.expect(jsonData.course).to.be.an("array");
+});
+
+
+5.2 Asserting array properties
+syntax:
+const jsonData = pm.response.json();
+pm.test("Test array properties", () =>{
+	//course include "Java
+	pm.expect(jsonData.courses).to.include("Java");
+	//course array must include all listed
+	pm.expect(jsonData.courses).to.have.members(["Java",'selenium"]);
+});
+
+
+5.3 Validating json fields in response:
+
+syntax:
+var jsonData = pm.response.json();
+pm.test("Test array properties", () =>{
+	pm.expect(jsonData.id).to.eql(1);
+	pm.expect(jsonData.name).to.eql("John");
+	pm.expect(jsonData.course[0]).to.eql("Java");
+	pm.expect(jsonData.course[1]).to.eql("Selenium");
+
+
+});
+
+
+
+5.4 Validating JSON schema
+* Schema means a structure of the data, schema is not changed and data is changing.
+* we have to validate the json response is following the json schema or not
+
+process of json schema:
+* goto google and search json converter json to json schema
+* paste it json response data and click generate json schema
+* copy the json schema and paste it script 
+* var schema is we can write in the script before we pasting the schema
+
+var schema=
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "courses": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "location",
+    "phone",
+    "courses"
+  ]
+}
+
+
+* start the validation and write syntax
+syntax:
+var jsonData = pm.response.json();
+pm.test('Schema is valid', function() {
+	pm.expect(tv4.validate(jsonData, schema)).to.be.true;
+});
+
+
+---------------------------------------------------------------------------------
+day-5
+
+Scripts and types of variables
+
+--------------------------------------
+* Scripts are two types
+1.Pre-request scripts: this request will excuted before the request.
+2.Tests: this tests excute after getting the response get.
+
+diagram mode sequence: Pre-requestScript-------> Request----> Response------->Tests
+* These two scripts avaiable at three levels
+1. Collection
+2.Folder
+3.Request
+
+   Pre-Request script					Test script
+____________________________			   _______________________________
+Collection-->Folder-->Request-->Request-->Response-->Collection-->Folder-->Request
+
+process of the scripts:
+* open the scripts in collections and click on script
+* write pre-script and post-script
+* open the scripts in folder and click on script
+* write pre-script and post-script
+* open the scripts in Request and click on script
+* write pre-script and post-script
+
+Postman Variables:
+Variable: which will store the data.
+why: some repeatation values we can use.
+
+* Different types of variables:
+1.Global
+2.Collection
+3.Environement
+4.Local
+5.Data
+
+1.Global variable: accessible in workspace.
+* when we create a global variable in work space we can access that variable in work space , collection, floder and request also.
+
+*creating global variable:
+Step: Rightside corner there is envirnoment quick look is there and click it
+* there two options is there and global and click on add 
+* give varaiable name(yrl_global) and give intial value as your url half. example:http://localhost:3000
+* copy that varaiable name paste it url box beside the get like this {{yrl_globa}}/students 
+
+* by writing script we can create a global varibles inside the pre-request script
+synatx: pm.globals.set("userid","2");
+
+* we are create global varibles, after using the these variables we want to delete the global variables(this the requirement).
+* write this syntax in post-script(test scripts) : pm.gloabal.unset("userid");
+
+* getting the values of global variables
+* write in post-script syntax:console.log( pm.globals.get("user_id"));
+
+
+2.collection variable:accessible in collection 
+* when we create a collection variable in collection we can access that variable in collection, floder and request also.
+
+
+
+* creating collection variables:
+Steps: click three dots at collection name.
+* click edit button.
+* click on variables sections.
+* create variables.
+
+* by writing script we can create a global varibles inside the pre-request script
+synatx: pm.collectionVariables.set("userid","2");
+
+
+* we are create global varibles, after using the these variables we want to delete the global variables(this the requirement).
+* write this syntax in post-script(test scripts) : pm.collectionVariables.unset("userid");
+
+
+
+
+
+3.Environment varaibles: it is same like global variables and these varaiable access different environments.
+* accessable in all collection we need to switch to particular environment.
+
+*creating environmet variable:
+Step: Rightside corner there is envirnoment quick look is there and click it
+* there two options is there and environment and click on add 
+* give varaiable name(yrl_global) and give intial value as your url half. example:http://localhost:3000
+* copy that varaiable name paste it url box beside the get like this {{yrl_globa}}/students
+* it showing error beacuse we can change the environment on leftside top there is envirnoment is there we can change that. 
+
+* by writing script we can create a env varibles inside the pre-request script
+synatx: pm.environment.set("uesrid_env","2");
+
+
+* we are create global varibles, after using the these variables we want to delete the global variables(this the requirement).
+* write this syntax in post-script(test scripts) : pm.environment.unset("userid");
+
+
+
+
+
+
+
+
+
+
+Diiference bt global and environment variable:
+
+4.local variables: accessible only within request(Specific to request)
+* all local variables is created in pre-request script only.
+syntax: pm.variables.set("url_local","http://localhost:3000");
+
+* it is automatically delete after using the local variable
+
+5.data variables: we will get the data from external files CSV/TExt
+
+------------------------------------------------------------------------------------
+
+Day-6
+Api chaining
+---------------------------------------------
+
+API chaining means when we send the request to api and the api sending the request to the database and that database giving the response to the api and that response is going to another api as request.
+
+* process storeing the new id number we can posted in database through postman:
+steps:
+1.We can create one post with details in keep in body
+2. after the posting the data, we can store the id in some variable.
+3.goto script in the post only, in that scripts we can move to post-script(test script) and write this code:
+3.1 var JsonData=JSON.parse(responseBody);----> we are storing the all data we are posted in database in the variable of JsonData.
+3.2pm.environment.set("create_id",JsonData.id);---->we are taking the only id data from the database.
+4. we add this create_id in the get also like: http://localhost:3000/students/{{create_id}}.
+5. we add this create_id in the delete alsolike:
+http://localhost:3000/students/{{create_id}}
+
+
+* gorest.co.in
+url:https://gorest.co.in/
+endpoints:
+
+POST /public/v2/users	Create a new user
+GET /public/v2/users/6940638	Get user details
+PUT|PATCH /public/v2/users/6940638	Update user details
+DELETE /public/v2/users/6940638	Delete user
+
+
+* we taking some apis from internet: search in google as gorest.co.in
+login it :
+token :45ef2dd301780102128cfeb90b61f05c837b6b336d065917a03237d254822814
+* we can use these token at, goto collection there Auth button is there, Auth type is there 
+drop down is there and select the bearer token and copy the token.
+* and also keep the each request as auth button is there we can keep it as inherit only
+
+Request body:
+{
+	"name":"Tenali Ramakrishna", 
+	"gender":"male", 
+	"email":"tenali.ramakrishna@15ce.com",
+	 "status":"active"
+}
+
+chaining process :
+step:
+1. create a new user as post by giving the body as name,gender,email,status.
+2.id is generated.
+3.taking that id, we getting that deatils,updating that details,Deleting that details
+4. we can change the email for every run(we can the eamil change automatically)
+5.passing the data dynamically	
+
+* changing the emailid,username(randomly)
+* goto pre-script in post, write this synatax:
+var random=Math.random().toString(36).substring(2);------>taking random
+var email="jim"+random+"@gmail.com";-----for email
+var name="jim"+random;------>for name
+pm.environment.set("email_env",useremail);----->keeping it env variables
+pm.environment.set("name1",username);------>keeping it env variables.
+
+* we can this variables in body:
+{
+	"name": "{{name1}}", 
+	"gender": "male", 
+	"email": "{{email_env}}",
+	 "status": "inactive"
+}
+
+* we can using assertion, because of the post data is same as get data or not
+We can write the script in the get(getting data) of the post-request(test script):
+var data=pm.response.json();--------------------->store the response data
+pm.test("values of json fields", () =>{
+pm.expect(data.id).to.eql(pm.environment.get("id_env"));-------->assertion for id
+pm.expect(data.email).to.eql(pm.environment.get("email_env"));--->assertion for eamil
+pm.expect(data.name).to.eql(pm.environment.get("name1"));------->assertion for name
+}
+
+
+----------------------------------------------------------------------------
+Day-7
+Parameterisation| Data Driven Testing
+-----------------------------------------
+* we are saving the data in external file and we are using the data file in postman
+* Some Apis: 
+1.Books API: pdf
+This APi allos you to reserve a book
+This API is avaiale at https://simple-books-api.glitch.me
+
+API Authentication
+To submit or view an order, you need to register your API client
+
+POST/api-clients/
+
+The request body needs to be in json format and include the following properties:
+. clientName-String
+. ClientEmail-String
+
+Example
+{
+	"Clientname":"Postman",
+	"ClientEmail": "hlo@gmail.com"
+}
+
+The response body will contain the access token. The access token is valid for 7days.
+Possiable errors:
+Status code 409-"Api Client already registered."Try Changing the values for clientEmail and clientName to something else.
+
+*Endpoints
+1.Status
+Get/status: returns the status of the api.
+
+2.List of books
+Get/Books:Returns a list of books
+
+Optional query parameters:
+. type: ficition or non-fiction
+. limit: a number between about a book
+
+3.Get a single book
+Get/books/:bookId: Retrieve detailed information about a book
+
+4.Submit an order
+post/Orders: Allows you to submit a new order. requires authentication.
+
+The request body needs to be in json format and include the following properties:
+. bookId-Integer-Required
+. customerName-String-Required
+Example:
+Post.orders/
+Authorization: Bearer <your Token>
+{
+	"bookId":1,
+	"customerName": "John"
+}
+The response body will contain the order id.6d4e2e44bb8440c2cf1cc9479bede5946cc9accfadbcc30d6de36c6cad4061f1
+
+5. Get all orders
+Get/Oders: Allows you to view all orders. Require anuth
+
+6.Get an order
+Get/orders/:orderId:Allows you to view an existing order.Require anuth
+
+7.Update an order
+PATCh/orders/:orderId:update an existing order.Require anuth
+The request body needs to be in json format and allows you to update the following properties:
+
+. customerName-String
+Example:
+Patch/order/orderId
+Auth is required
+{
+	"customerName": "Hosanna"
+}
+
+8.Delete order
+Delete/oders.:orderId:Delete existing order. Auth requires
+
+
+
+
+
+
+* Process for book APi:
+Steps:
+1.we can create new collection and that new collection we can create new request for the post, give this url(https://simple-books-api.glitch.me/api-clients/) and send the data in body and click raw and click the json format and give the data like this:
+{
+    "clientName":"hosanna",
+    "clientEmail": "hosanna16@gmail.com"
+}
+2. and one token is created.(    "accessToken": "6d4e2e44bb8440c2cf1cc9479bede5946cc9accfadbcc30d6de36c6cad4061f1"
+)
+* we can give this token in another model also, create a varible in collection as name: token , intial value: token number, expected value: token number.
+* we can use this token variable in the request there is auth click that select from dropdown Beerer give the token number as {{token}}.
+
+3.create a new request as pdf(BookApi) each one.
+
+4.Here onwards Data driven start(passing the data in external file using CSV/Json format)  and also chaining process
+
+5. Take a duplicate collection from above collection and Delete all request except post submit order, get Single order, Delete order.
+
+6. create one csv file, open excel write below like:
+BookID	CustomerName
+1	Hosanna
+1	Keerthana
+3	Raj
+4	Vijaya
+6	Satya
+and save it as name.csv
+* why BookId:2 is not in csv file? beacause bookid:2 not have available(available": false).
+reamining are seen as available": true that means bookid:2 is not there
+* bookid we have to capture from database only(https://simple-books-api.glitch.me/books) get method, customername is as ur wish
+
+7.keep the heading row(means BookID,CustomerName) of csv file in post body like this:
+{
+	"bookId":"{{BookID}}",
+	"customerName": "{{CustomerName}}"
+}
+
+8.adding assertion  in the post of post-script(test script) like this:
+pm.test("Status code 201",()=>{
+    pm.response.to.have.status(201);
+});
+
+9.goto get single order request and add some assertion for that like:status code, id is matching same are not from the post.orderid=get.id
+pm.test("Status code is 200",  ()=> {
+    pm.response.to.have.status(200);
+});
+pm.test("Check orderid present in the response body",()=>{
+    var d2=pm.response.json();
+    pm.expect(d2.id).to.eql(pm.environment.get("id_env"));
+});
+
+10.goto delete request and write assertion for status code(204) and aslo deleting environment variable like:
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(204);
+});
+pm.environment.unset("id_env");
+
+11. after above step is completed, we can run the collection as run collection button click it and iteration=data(we can taking 5 bookid but we want 3 bookid on that tme we an keep the iteration as 3)
+
+12.and there is select button is there click it and select the csv file where you saved and run it.
+
+13. Using Json external file same as csv but we can change the select the file as json file and json file like:
+ 
+[
+  {
+    "BookID": 1,
+    "CustomerName": "Hosanna"
+  },
+  {
+    "BookID": 1,
+    "CustomerName": "Keerthana"
+  },
+  {
+    "BookID": 3,
+    "CustomerName": "Raj"
+  },
+  {
+    "BookID": 4,
+    "CustomerName": "Vijaya"
+  },
+  {
+    "BookID": 6,
+    "CustomerName": "Satya"
+  }
+]
+
+-------------------------------------------------------------------
+Day-8
+File upload API and Authentication Types
+---------------------------------------------------------------------
+1.Upload file
+* in these video not good explaintion and seen in another channel
+
+2.Authentication Types:
+1.No auth: we dont want the auth.
+2.Api key:
+3.Bearer Token:
+Process:
+* create new get Request as url:https://api.github.com/user/repos
+* we have to create the token from github, because the above url is github.
+* goto gihub and open settings, and scroll down there is one option that option name is "developer setting" click , next there is personal access token is there click it and after that click on token classic after that click generate new token and the name and click the check boxes and click generate .
+* we generate the token number copy that, and paste it in token box.
+
+
+
+
+4.Basic auth:
+Process of giving this request: 
+* create the new get request and url is https://postman-echo.com/basic-auth and UserName: postman , password: password.
+* click on auth in that get request and click on type as Basic Auth.
+* and give the userName and Password.
+
+
+5.Digest Auth:Digest auth is same as Basic auth but some additional options is there and also it more secure compare to Basic auth.
+6.OAuth 1.0:
+7.OAuth 2.0:
+8.Hawk auth:
+9.AWS Signature:
+10.NTLM auth:
+11.Akamai EdgeGrid:
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
